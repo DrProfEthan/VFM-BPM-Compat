@@ -1,0 +1,12 @@
+{
+  "name" : "VFM & Better Politics Mod Compat",
+  "id" : "",
+  "version" : "0.2",
+  "supported_game_version" : "1.7.*",
+  "short_description" : "Offers compatibility between VFM and BPM",
+  "tags" : [],
+  "relationships" : [],
+  "game_custom_data" : {
+    "multiplayer_synchronized" : true
+  }
+}
