@@ -21,6 +21,7 @@ ideology_traditionalist = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = approve
+		law_jizya = approve
 		law_denominational_exclusion = approve
 		law_freedom_of_conscience = disapprove
 		law_total_separation = strongly_disapprove
@@ -107,6 +108,7 @@ ideology_atheist = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = strongly_disapprove
+		law_jizya = strongly_disapprove
 		law_denominational_exclusion = strongly_disapprove
 		law_freedom_of_conscience = disapprove
 		law_total_separation = approve
@@ -494,6 +496,7 @@ ideology_communist = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = strongly_disapprove
+		law_jizya = strongly_disapprove
 		law_denominational_exclusion = disapprove
 		law_freedom_of_conscience = neutral
 		law_total_separation = approve
@@ -679,6 +682,7 @@ ideology_theocrat = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = approve
+		law_jizya = approve
 		law_denominational_exclusion = approve
 		law_freedom_of_conscience = disapprove
 		law_total_separation = strongly_disapprove
@@ -815,6 +819,7 @@ ideology_positivist = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = strongly_disapprove
+		law_jizya = strongly_disapprove
 		law_denominational_exclusion = disapprove
 		law_freedom_of_conscience = disapprove
 		law_total_separation = approve
@@ -998,6 +1003,7 @@ ideology_integralist = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = strongly_approve
+		law_jizya = strongly_approve
 		law_denominational_exclusion = approve
 		law_freedom_of_conscience = disapprove
 		law_total_separation = strongly_disapprove
@@ -1247,6 +1253,7 @@ ideology_legitimist = {
 
 	lawgroup_church_and_state = {
 		law_state_religion = approve
+		law_jizya = approve
 		law_denominational_exclusion = neutral
 		law_freedom_of_conscience = disapprove
 		law_total_separation = strongly_disapprove
