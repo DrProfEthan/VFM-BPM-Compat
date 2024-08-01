@@ -210,8 +210,43 @@ peru_bolivia_confederation.4 = { #South Peru Declaration of Independence
 			      is_decaying = yes
 		        }
 
+				activate_law = law_type:law_confederated
+
+				bpm_setup_country = yes
+
+				ig:ig_devout = { 
+					add_ideology = ideology_cit_immigrant_nationalist
+					bpm_reorder_ideologies = yes
+				}
+
+				ig:ig_reactionaries = { 
+					bpm_remove_all_mil_ideologies = yes
+					add_ideology = ideology_mil_institutional_militarist
+					bpm_remove_all_wel_ideologies = yes
+					add_ideology = ideology_wel_religious_welfare
+					bpm_remove_all_eco_ideologies = yes
+					add_ideology = ideology_eco_conservative_agrarian
+					remove_modifier = bpm_landowner_wary
+					bpm_reorder_ideologies = yes
+				}
+
+				ig:ig_radicals = { 
+					bpm_remove_all_sta_ideologies = yes
+					add_ideology = ideology_sta_minimal_state
+					bpm_remove_all_mil_ideologies = yes
+					add_ideology = ideology_mil_antimilitarist
+					bpm_reorder_ideologies = yes
+				}
+
 				ig:ig_armed_forces = {
 					add_ideology = ideology_caudillismo
+					bpm_ig_make_caudillismo = yes
+					bpm_reorder_ideologies = yes
+				}
+
+				ig:ig_landowners = {
+					add_ideology = ideology_caudillismo
+					bpm_ig_make_caudillismo = yes
 					bpm_reorder_ideologies = yes
 				}
 		
@@ -219,6 +254,8 @@ peru_bolivia_confederation.4 = { #South Peru Declaration of Independence
 					remove_ideology = ideology_liberal
 					add_ideology = ideology_liberalismo
 					add_ideology = ideology_soberania_aristocratica
+					bpm_remove_all_mil_ideologies = yes
+					add_ideology = ideology_mil_antimilitarist
 					bpm_reorder_ideologies = yes
 				}
 
