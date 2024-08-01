@@ -1,4 +1,16 @@
-﻿ideology_moderate = {
+﻿ideology_placeholder_leader = {
+	icon = "gfx/interface/icons/ideology_icons/placeholder.dds"
+	show_in_list = no
+	character_ideology = yes
+	possible = {
+		always = no
+	}
+	leader_weight = {
+		value = 0
+	}
+}
+
+ideology_moderate = {
 	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ideology_leader_no_ideology.dds"
 	
 	show_in_list = no
@@ -82,6 +94,44 @@
 	}
 }
 
+ideology_center_leader = {
+	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ideology_leader_blank.dds"
+
+	character_ideology = yes
+	show_in_list = no
+
+	possible = {
+		scope:interest_group = {
+			OR = {
+				bpm_ig_is_institutional = no
+				is_interest_group_type = ig_trade_unions
+			}
+		}
+	}
+	
+	leader_weight = {
+		value = 100
+		# Agitators tend to be less orthodox
+		if = {
+			limit = {
+				has_role = agitator
+			}
+			add = -50
+		}
+		# Radicals are more disciplined
+		if = {
+			limit = {
+				scope:interest_group = { 
+					OR = {
+						bpm_ig_is_socialist = yes
+						bpm_ig_is_radical_left = yes
+					}
+				}
+			}
+			add = 100
+		}
+	}
+}
 
 ideology_traditionalist = {
 	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ideology_leader_traditionalist.dds"
