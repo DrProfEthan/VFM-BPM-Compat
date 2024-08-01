@@ -1,0 +1,48 @@
+﻿GLOBAL = {
+	c:CAR = {
+		activate_law = law_type:law_slavery_banned
+		activate_law = law_type:law_devolved
+		every_interest_group = {
+			limit = {
+				has_ideology = ideology:ideology_eco_slave_economy
+			}
+			bpm_remove_all_eco_ideologies = yes
+			add_ideology = ideology_eco_traditional_agrarian
+		}
+		ig:ig_reactionaries = { 
+			set_interest_group_name = ig_carlists
+			bpm_remove_all_dop_ideologies = yes
+			add_ideology = ideology_dop_autocrat
+			bpm_remove_all_sta_ideologies = yes
+			add_ideology = ideology_sta_decentralized_state
+			bpm_remove_all_cit_ideologies = yes
+			add_ideology = ideology_cit_multiethnic_nationalist
+			bpm_remove_all_wel_ideologies = yes
+			add_ideology = ideology_wel_religious_welfare
+		}
+	}
+	c:PCO = {
+		activate_law = law_type:law_slave_trade
+		bpm_make_igs_pro_slavery = yes
+	}
+	c:PEU = {
+		activate_law = law_type:law_confederated
+		ig:ig_radicals = { 
+			bpm_remove_all_sta_ideologies = yes
+			add_ideology = ideology_sta_minimal_state
+			bpm_remove_all_mil_ideologies = yes
+			add_ideology = ideology_mil_antimilitarist
+		}
+		ig:ig_liberals = { 
+			bpm_remove_all_mil_ideologies = yes
+			add_ideology = ideology_mil_antimilitarist
+		}
+	}
+
+	every_country = {
+		every_interest_group = {
+			limit = { bpm_ig_enabled = yes }
+			bpm_reorder_ideologies = yes
+		}
+	}
+}
