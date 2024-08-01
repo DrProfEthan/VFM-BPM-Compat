@@ -14,45 +14,26 @@ ideology_moderate = {
 	icon = "gfx/interface/icons/ideology_icons/ideology_leader/ideology_leader_no_ideology.dds"
 	
 	show_in_list = no
-	
 	character_ideology = yes
 	
 	possible = {
-		always = yes
 		NOT = { has_role = agitator }
 
 		scope:interest_group = {
-			NOR = {
-				bpm_ig_is_socialist = yes
-				bpm_ig_is_traditionalist = yes
-				bpm_ig_is_fascist = yes
+			# bpm_ig_enabled = yes
+			OR = {
+				bpm_ig_is_institutional = yes
+				NOR = {
+					bpm_ig_is_socialist = yes
+					bpm_ig_is_traditionalist = yes
+					bpm_ig_is_fascist = yes
+				}
 			}
 		}
 	}
 	
 	leader_weight = {
-		value = 200	
-		if = {
-			limit = {
-				scope:interest_group = { bpm_ig_enabled = no }
-			}
-			multiply = { value = 1000.0 }
-		}
-		if = {
-			limit = {
-				scope:interest_group = {
-					ig_clout > 0.001
-				}
-				scope:interest_group = {
-					OR = {
-						bpm_ig_is_socialist = yes
-						bpm_ig_is_traditionalist = yes
-						bpm_ig_is_fascist = yes
-					}
-				}
-			}
-			add = -10000
-		}
+		value = 150
 		# angry IG's more likely to have opinions
 		if = {
 			limit = {
@@ -81,15 +62,6 @@ ideology_moderate = {
 				}
 			}
 			add = 100
-		}
-		# what makes a man turn neutral? lust for gold? power? or were you just born with a heart full of neutrality?
-		if = {
-			limit = {
-				scope:interest_group = {
-					ig_approval = 0
-				}
-			}
-			add = 1
 		}
 	}
 }
