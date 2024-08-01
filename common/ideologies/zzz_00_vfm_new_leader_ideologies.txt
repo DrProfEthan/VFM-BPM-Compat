@@ -27,9 +27,9 @@
 		law_universal_suffrage = strongly_disapprove
 		law_census_voting = strongly_disapprove
 		law_wealth_voting = strongly_disapprove
-		law_landed_voting = strongly_disapprove		
+		law_landed_voting = strongly_disapprove	
 		law_technocracy = disapprove
-		law_military_junta = disapprove		
+		law_military_junta = disapprove				
 	}
 
 	lawgroup_citizenship = {
@@ -58,7 +58,15 @@
 		law_local_police = approve
 		law_dedicated_police = approve
 		law_militarized_police = strongly_approve
+		law_elected_police = strongly_disapprove
 		law_no_police = disapprove
+	}
+
+	lawgroup_repeatable_religion = {
+		law_repeatable_religion_promote_state_religion = approve
+		law_repeatable_religion_anti_secular_reaction = strongly_approve
+		law_repeatable_religion_promote_secular_values = strongly_disapprove
+		law_repeatable_religion_anti_religious_violence = strongly_disapprove
 	}
 
 	leader_weight = {
@@ -151,6 +159,7 @@ ideology_liberal_monarchist = {
 		law_local_police = disapprove
 		law_dedicated_police = approve
 		law_militarized_police = strongly_disapprove
+		law_elected_police = disapprove
 		law_no_police = disapprove
 	}
 
@@ -257,7 +266,7 @@ ideology_autocratic_autonomist = {
 	}
 	
 	lawgroup_centralization = {
-		law_ad_hoc_centralization = strongly_approve
+		law_ad_hoc_centralization = disapprove
 		law_confederated = strongly_approve
 		law_federated = approve
 		law_devolved = disapprove
