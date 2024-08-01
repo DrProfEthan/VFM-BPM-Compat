@@ -2,7 +2,13 @@
 	c:CAR = {
 		activate_law = law_type:law_slavery_banned
 		activate_law = law_type:law_devolved
-		bpm_make_igs_not_pro_slavery_serfdom = yes
+		every_interest_group = {
+			limit = {
+				has_ideology = ideology:ideology_eco_slave_economy
+			}
+			bpm_remove_all_eco_ideologies = yes
+			add_ideology = ideology_eco_traditional_agrarian
+		}
 		ig:ig_reactionaries = { 
 			set_interest_group_name = ig_carlists
 			bpm_remove_all_dop_ideologies = yes
