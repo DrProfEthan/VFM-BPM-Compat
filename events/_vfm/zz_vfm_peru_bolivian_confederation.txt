@@ -215,6 +215,7 @@ peru_bolivia_confederation.4 = { #South Peru Declaration of Independence
 				bpm_setup_country = yes
 
 				ig:ig_devout = { 
+					bpm_remove_all_cit_ideologies = yes
 					add_ideology = ideology_cit_immigrant_nationalist
 					bpm_reorder_ideologies = yes
 				}
