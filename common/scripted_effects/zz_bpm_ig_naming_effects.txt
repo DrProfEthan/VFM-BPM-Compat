@@ -1,0 +1,181 @@
+﻿#
+#
+# INSTITUTIONAL
+#
+#
+
+
+bpm_rename_intelligentsia_ig = {
+	if = {
+		limit = {
+			country_has_primary_culture = cu:russian
+			OR = {
+				has_variable = je_bpm_russia_estates_burghers_exists
+				has_variable = je_bpm_russia_estates_burghers_exists_de_jure
+			}
+			NOT = { has_law = law_type:law_council_republic }
+		}
+		if = { # Raznochintsy
+			limit = { ig:ig_intelligentsia ?= { bpm_leader_is_left_wing = yes }  }
+			ig:ig_intelligentsia ?= {
+				set_interest_group_name = ig_rus_raznochintsy
+			}
+		} else = { # Meschane
+			ig:ig_intelligentsia ?= {
+				set_interest_group_name = ig_rus_meschane
+			}
+		}
+	} else_if = { # Urban Obschina (Socialist-Narodnik)
+		limit = {
+			has_modifier = bpm_russia_obschina_empowered
+			has_law = law_type:law_council_republic
+		}
+		ig:ig_intelligentsia ?= {
+			set_interest_group_name = ig_rus_obschina_urban
+		}
+	} else_if = { # Sweden Guilds
+		limit = {
+			this = c:SWE
+			ig:ig_intelligentsia ?= { has_modifier = guild_dominance }
+		}
+		ig:ig_intelligentsia ?= {
+			set_interest_group_name = ig_guilds
+		}
+	} else = {
+		ig:ig_intelligentsia ?= { set_interest_group_name = ig_intelligentsia }
+	}
+}
+
+#
+#
+# IDEOLOGICAL
+#
+#
+
+
+bpm_rename_reactionary_ig = {
+	if = {
+		limit = {
+			this = c:FRA
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_legitimists }
+	}
+	else_if ={
+		limit = {
+			this = c:JAP
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_restorationists }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				this = c:SPA
+				this = c:CAR
+			}
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_carlists }
+	}
+	else_if = {
+		limit = {
+			this = c:POR
+			ig:ig_reactionaries ?= { NOT = { has_ideology = ideology:ideology_sta_organic_state } }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_miguelists }
+	}
+	else_if = {
+		limit = {
+			this = c:RUS
+			NOT = { has_variable = bpm_je_zapadniks_and_slavophiles_over }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_slavophiles }
+	}
+	else_if = {
+		limit = { this = c:USA }
+		if = {
+			limit = {
+				OR = {
+					game_date <= 1836.1.1
+					AND = {
+						has_variable = bpm_2nd_party_system
+						ig:ig_reactionaries ?= { leader = { has_variable = is_calhoun }}		
+					}
+				}
+			}
+			ig:ig_reactionaries ?= { set_interest_group_name = ig_calhounites }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					NOT = { has_global_variable = american_civil_war }
+					ig:ig_reactionaries ?= {
+						has_party = yes
+						party = {
+							is_party_type = conservative_party
+						}
+					}
+				}
+			}
+			ig:ig_reactionaries ?= { set_interest_group_name = ig_southern_democrats }
+		}
+		else = {
+			ig:ig_reactionaries ?= { set_interest_group_name = ig_southern_conservatives }
+		}
+	}
+	else_if = {
+		limit = {
+			this = c:BRZ
+			ig:ig_reactionaries ?= { has_ideology = ideology:ideology_sta_organic_state }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_patrianovists }
+	}
+	else_if = {
+		limit = {
+			this = c:BRZ
+			has_law = law_type:law_monarchy
+			ig:ig_reactionaries ?= { NOT = { has_ideology = ideology:ideology_sta_organic_state } }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_caramurus }
+	}
+	else_if = {
+		limit = {
+			ig:ig_reactionaries ?= { has_ideology = ideology:ideology_sta_organic_state }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_integralists }
+	}
+	else_if = {
+		limit = {
+			bpm_country_is_pre_constitutional = yes
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_absolutists }
+	}
+	else_if = {
+		limit = {
+			bpm_country_is_republic = yes
+			ig:ig_reactionaries ?= { bpm_ig_is_monarchist = yes }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_monarchists }
+	}
+	else_if = {
+		limit = {
+			NOT = { has_law = law_type:law_theocracy }
+			ig:ig_reactionaries ?= { bpm_ig_is_theocratic = yes }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_theocrats }
+	}
+	else_if = {
+		limit = {
+			 ig:ig_reactionaries ?= { bpm_ig_is_democrat = yes }
+		}
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_national_conservatives }
+	}
+	else = {
+		ig:ig_reactionaries ?= { set_interest_group_name = ig_reactionaries }
+	}
+}
+
+#
+#
+# 
+#
+#
+

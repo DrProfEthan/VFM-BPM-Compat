@@ -1,0 +1,159 @@
+﻿namespace = journal_flavor_scandinavia
+
+journal_flavor_scandinavia.2 = {
+	type = country_event
+	placement = root
+
+	title = journal_flavor_scandinavia.2.t
+	desc = journal_flavor_scandinavia.2.d
+	flavor = journal_flavor_scandinavia.2.f
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	duration = 3
+
+	trigger = {
+		# triggered by journal entry
+	}
+
+	immediate = {
+		ig:ig_intelligentsia = {
+			save_scope_as = guilds_ig
+			leader = {
+				save_scope_as = guilds_ig_leader
+			}
+		}
+
+		ig:ig_industrialists = {
+			save_scope_as = industrialists_ig
+		}
+
+	}
+
+	option = {
+		name = journal_flavor_scandinavia.2.a
+		default_option = yes
+
+		custom_tooltip = guilds_rename.tt
+
+		hidden_effect = {
+			scope:guilds_ig = {
+				set_interest_group_name = ig_intelligentsia
+			}
+		}
+		scope:guilds_ig  = {
+			remove_ideology = ideology_guilds
+			pm_remove_all_eco_ideologies = yes
+			bpm_reorder_ideologies = yes
+		}
+
+		scope:guilds_ig  = {
+			remove_modifier = guild_dominance
+			add_modifier = {
+				name = lingering_guild_dominance
+				months = normal_modifier_time
+			}
+		}
+
+		ig:ig_industrialists = {
+			remove_modifier = guild_dominance_industrialists
+			add_modifier = {
+				name = lingering_guild_dominance_industrialists
+				months = normal_modifier_time
+			}
+		}
+
+	}
+	
+}
+
+journal_flavor_scandinavia.4 = { #Norway Flag Question
+	type = country_event
+	placement = root
+
+	title = journal_flavor_scandinavia.4.t
+	desc = journal_flavor_scandinavia.4.d
+	flavor = journal_flavor_scandinavia.4.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/asia/politician_parliament_motion"
+
+	icon = "gfx/interface/icons/event_icons/event_scales.dds"
+
+	duration = 3
+
+	trigger = {
+		NOT = {
+			has_variable = norway_flag_var
+		}
+	}
+
+	immediate = {
+		c:NOR = {
+			save_scope_as = nor_scope
+		}
+
+		set_variable = norway_flag_var
+
+	}
+
+	option = {
+		name = journal_flavor_scandinavia.4.a
+		default_option = yes
+
+		change_relations = {
+			country = C:NOR
+			value = 30
+		}
+
+		add_modifier = {
+			name = norway_flags_prestige
+			months = normal_modifier_time
+		}
+
+
+		ig:ig_intelligentsia = {
+			add_modifier = {
+				name = norway_flags_petite
+				months = normal_modifier_time
+			}
+		}
+
+	}
+
+	
+	option = {
+		name = journal_flavor_scandinavia.4.b
+
+		change_relations = {
+			country = C:NOR
+			value = -50
+		}
+
+		add_modifier = {
+			name = norway_flags_denied_prestige
+			months = normal_modifier_time
+		}
+
+		ig:ig_intelligentsia = {
+			add_modifier = {
+				name = norway_flags_denied_petite
+				months = normal_modifier_time
+			}
+		}
+
+
+	}
+	
+}
