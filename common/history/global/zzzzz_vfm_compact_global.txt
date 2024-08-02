@@ -62,7 +62,12 @@
 	c:SWE = {	
 		ig:ig_intelligentsia = {
 			set_interest_group_name = ig_guilds
+			bpm_remove_all_eco_ideologies = yes
 			add_ideology = ideology_eco_traditional_agrarian
+			bpm_remove_all_dop_ideologies = yes
+			add_ideology = ideology_dop_oligarch
+			bpm_remove_all_cit_ideologies = yes
+			add_ideology = ideology_cit_nationalist
 		}
 	}
 	every_country = {
