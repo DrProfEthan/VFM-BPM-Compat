@@ -48,6 +48,9 @@ peru_bolivia_confederation.3 = { #Division of Peru
             type = confederative_partner
         }
 		c:SPU = {
+			activate_law = law_type:law_confederated
+			bpm_setup_country = yes
+			
 			set_relations = { country = c:BOL value = 80 }
 			create_character = {
 				first_name = nicolas
@@ -209,10 +212,6 @@ peru_bolivia_confederation.4 = { #South Peru Declaration of Independence
 			      months = very_long_modifier_time
 			      is_decaying = yes
 		        }
-
-				activate_law = law_type:law_confederated
-
-				bpm_setup_country = yes
 
 				ig:ig_devout = { 
 					bpm_remove_all_cit_ideologies = yes
