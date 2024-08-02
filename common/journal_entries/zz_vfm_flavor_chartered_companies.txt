@@ -1,0 +1,163 @@
+﻿
+je_company_bankruptcy = {
+	icon = "gfx/interface/icons/event_icons/event_skull.dds"
+    
+	group = je_group_crises
+	
+	is_shown_when_inactive = {
+		is_subject_type = subject_type_chartered_company
+	}
+
+    possible = {
+		taking_loans = yes
+	}
+
+	fail = {
+		in_default = yes
+	}
+
+	invalid = {
+		NOT = { is_subject_type = subject_type_chartered_company }
+	}
+
+    on_fail = {
+		top_overlord = {
+			create_diplomatic_pact = {
+				country = root
+				type = dependency
+			}
+		}
+		if = {
+			limit = {
+				c:RAC ?= ROOT
+			}
+			change_tag = AKA
+		}	
+		else_if = {
+			limit = {
+				c:BIC ?= ROOT
+			}
+			top_overlord = {
+				trigger_event = { id = raj.1 }
+			}
+		}
+		else_if = {
+			limit = {
+				c:HBC ?= ROOT
+			}
+
+			if = {
+				limit = { exists = c:ONT }
+				random_scope_state = {
+					limit = {
+						state_region = s:STATE_ONTARIO
+					}
+					set_state_owner = c:ONT
+				}
+			}
+			if = {
+				limit = { exists = c:QUE }
+				random_scope_state = {
+					limit = {
+						state_region = s:STATE_QUEBEC
+					}
+					set_state_owner = c:QUE
+				}
+			}
+
+		}	
+		else_if = {
+			limit = {
+				c:RNC ?= ROOT
+			}
+			change_tag = NGR
+		}
+		else_if = {
+			limit = {
+				c:RGT ?= ROOT
+			}
+			change_tag = GRN
+		}
+		else_if = {
+			limit = {
+				c:BSA ?= ROOT
+			}
+
+			if = { 
+				limit = {
+					NOT = {
+						any_scope_state = {
+							OR = {
+								state_region = s:STATE_ZAMBIA
+								state_region = s:STATE_KAZEMBE
+							}
+						}	
+					}
+				}
+				change_tag = RHO
+			}
+			else = {
+				change_tag = ZAM
+
+				if = {
+					limit = {
+						any_scope_state = {
+							state_region = s:STATE_ZAMBEZI
+						}	
+					}
+					create_country = {
+						tag = RHO
+						origin = this
+						state = s:STATE_ZAMBEZI.region_state:ZAM
+					}
+					top_overlord = {
+						create_diplomatic_pact = {
+						country = c:RHO
+						type = puppet
+						}
+					}
+					c:RHO = {
+						bpm_setup_country = yes
+					}
+				}
+			}
+
+
+
+		}
+		else_if = {
+			limit = {
+				c:IAC ?= ROOT
+			}
+			change_tag = KNY
+
+			if = {
+				limit = {
+					any_scope_state = {
+						state_region = s:STATE_UGANDA
+					}	
+				}
+				create_country = {
+					tag = UGA
+					origin = this
+					state = s:STATE_UGANDA.region_state:KNY
+				}
+				top_overlord = {
+					create_diplomatic_pact = {
+					country = c:UGA
+					type = puppet
+					}
+				}
+				c:UGA = {
+					bpm_setup_country = yes
+				}
+			}
+
+		}
+
+	}
+
+    should_be_pinned_by_default = yes
+	weight = 1000
+}
+

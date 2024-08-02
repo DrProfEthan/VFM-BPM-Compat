@@ -1,0 +1,111 @@
+﻿namespace = low_countries_events
+
+# First Treaty of London
+low_countries_events.1 = {
+	type = country_event
+	placement = root
+	title = low_countries_events.1.t
+	desc = low_countries_events.1.d
+	flavor = low_countries_events.1.f
+
+	duration = 6
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_signed_contract.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/signed_contract"
+
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+	
+	immediate = {
+		create_country = {
+			tag = LBG
+			origin = THIS
+			state = s:STATE_GELRE.region_state:BEL
+		}
+		create_country = {
+			tag = LUX
+			origin = THIS
+			state = s:STATE_LUXEMBOURG.region_state:BEL
+		}
+		c:LBG = {
+			bpm_setup_country = yes
+		}
+		c:LUX = {
+			bpm_setup_country = yes
+		}
+		c:NET ?= {
+			create_diplomatic_pact = {
+				country = c:LBG
+				type = personal_union
+			}
+			create_diplomatic_pact = {
+				country = c:LUX
+				type = personal_union
+			}
+		}
+	}
+
+
+	option = {
+		name = low_countries_events.1.a
+		default_option = yes
+		ai_chance = 1
+		change_relations = {
+			country = c:GBR
+			value = 20
+		}
+		change_relations = {
+			country = c:FRA
+			value = 15
+		}
+		change_relations = {
+			country = c:NET
+			value = 10
+		}
+	}
+
+	option = {
+		name = low_countries_events.1.b
+		ai_chance = 0
+		change_infamy = 24
+		s:STATE_GELRE = {
+			add_claim = ROOT
+		}
+		s:STATE_LUXEMBOURG = {
+			add_claim = ROOT
+		}
+		change_relations = {
+			country = c:GBR
+			value = -30
+		}
+		change_relations = {
+			country = c:FRA
+			value = -30
+		}
+		change_relations = {
+			country = c:NET
+			value = -30
+		}
+		#add_modifier = { #Only give after victory
+		#	name = pax_belgica
+		#}
+
+	}
+	option = {
+		name = low_countries_events.1.c
+		trigger = {
+			exists = c:LUX
+		}
+		play_as = c:LUX
+	}
+	option = {
+		name = low_countries_events.1.e
+		trigger = {
+			exists = c:LBG
+		}
+		play_as = c:LBG
+	}
+}

@@ -1,0 +1,1039 @@
+﻿namespace = italy_1848
+
+#(HIDDEN) Sicilian Revolution
+italy_1848.1 = {
+	type = country_event
+	placement = scope:sicily_scope
+
+	hidden = yes
+
+	duration = 1
+
+	trigger = {
+		owns_entire_state_region = STATE_SICILY
+		OR = {
+			has_journal_entry = je_springtime_of_the_peoples
+			any_scope_state = {
+				state_region = s:STATE_SICILY
+				OR = {
+					radical_fraction = {
+						value >= 0.3
+					}
+					turmoil >= 0.2
+				}
+			}	
+		}
+		has_global_variable = sicilian_rev_possible_var
+		NOT = {
+			exists = c:ITA
+		}
+	}
+
+	immediate = {
+		remove_global_variable = sicilian_rev_possible_var
+		ROOT = {
+			save_scope_as = country_scope
+		}
+		s:STATE_SICILY = {
+			random_scope_state = {
+				save_scope_as = sicily_scope
+			}
+		}
+		create_country = { # Sicily
+			tag = SCL
+			origin = ROOT
+			state = scope:sicily_scope
+			on_created = {
+				set_variable = {
+					name = sicilian_revolution_var1
+					value = yes
+				}
+				activate_law = law_type:law_presidential_republic
+				activate_law = law_type:law_universal_suffrage
+				activate_law = law_type:law_right_of_assembly
+				bpm_setup_country = yes
+				call_election = {
+					months = 48
+				}
+				ig:ig_radicals = {
+					add_ruling_interest_group = yes
+					add_modifier = {
+						name = sicilian_revolution_ig_str
+						months = long_modifier_time
+					}
+				}
+				create_character = {
+					# Ruggero Settimo
+					is_general = no
+					first_name = "Ruggero"
+					last_name = "Settimo"
+					historical = yes
+					ruler = no
+					birth_date = 1778.05.19
+					ig_leader = yes
+					interest_group = ig_radicals
+					ideology = ideology_liberal
+					traits = {
+						expert_naval_commander
+					}
+				}
+			}
+		}
+		s:STATE_SICILY = {
+			add_claim = ROOT
+		}
+		scope:country_scope = {
+			trigger_event = {
+				id = italy_1848.2
+				days = 1 #This is needed or the loc won't show the SCL flag
+				popup = yes
+			}
+		}
+	}
+}
+
+#SCL Republic or Kingdom?
+italy_1848.3 = {
+	type = country_event
+	placement = root
+
+	title = italy_1848.3.t
+	desc = italy_1848.3.d
+	flavor = italy_1848.3.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/africa/leader_arguing"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+
+	trigger = {
+		exists = c:SCL
+		this = c:SCL
+		c:SCL = {
+			is_at_war = no
+			owns_entire_state_region = STATE_SICILY
+		}
+		has_variable = sicilian_revolution_var1
+	}
+
+	immediate = {
+		random_country = {
+			limit = {
+				has_claim = s:STATE_SICILY
+			}
+			save_scope_as = country_scope
+		}
+		c:SCL = {
+	    	ruler = {
+				save_scope_as = ruler_scope
+			}
+		}
+     	remove_variable = sicilian_revolution_var1
+	}
+
+	option = {
+		name = italy_1848.3.a
+		default_option = yes
+		c:SCL = {
+			activate_law = law_type:law_monarchy
+		}
+		create_character = {
+			# Alberto Amedeo I
+			is_general = no
+			first_name = "Alberto_Amedeo_I"
+			last_name = "di_Savoia-Genova"
+			historical = yes
+			culture = cu:north_italian
+			ruler = yes
+			birth_date = 1822.11.15
+			ig_leader = no
+			interest_group = ig_conservatives
+			ideology = ideology_moderate
+			traits = {
+				cautious
+			}
+		}
+		custom_tooltip = italy_1848.3.tt1
+		hidden_effect = {
+			trigger_event = {
+				id = italy_1848.5
+				days = 1 #This is needed or the character gets replaced by a generic one
+			}
+		}
+
+	    ai_chance = {
+			base = 80	
+		}
+    }
+	option = {
+		name = italy_1848.3.b
+		custom_tooltip = italy_1848.3.tt2
+
+	    ai_chance = {
+			base = 20
+			modifier = {
+				trigger = {
+					c:SAR = {
+						is_at_war = yes
+					}
+				}
+			add = 30
+			}
+		}
+    }
+}
+
+#SCL The New King
+italy_1848.5 = {
+	type = country_event
+	placement = root
+
+	hidden = yes
+
+	duration = 0
+
+	immediate = {
+		create_character = {
+			# Alberto Amedeo I
+			is_general = no
+			first_name = "Alberto_Amedeo_I"
+			last_name = "di_Savoia-Genova"
+			historical = yes
+			culture = cu:north_italian
+			ruler = yes
+			birth_date = 1822.11.15
+			ig_leader = no
+			interest_group = ig_conservatives
+			ideology = ideology_moderate
+			traits = {
+				cautious
+			}
+		}
+    }
+}
+
+#SIC Sicilian revolution lost
+italy_1848.4 = {
+	type = country_event
+	placement = root
+
+	title = italy_1848.4.t
+	desc = italy_1848.4.d
+	flavor = italy_1848.4.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_politicians_arguing.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/africa/leader_arguing"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 3
+
+	immediate = {
+		c:SCL = {
+			save_scope_as = sic_rev_scope
+		}
+	}
+
+	option = {
+		name = italy_1848.4.a
+		default_option = yes
+
+		add_modifier = {
+		    name = sicilian_revolution_legitimacy
+			months = long_modifier_time
+		}
+		add_radicals = {
+			strata = poor
+			value = 0.2
+		}
+		add_radicals = {
+			strata = middle
+			value = 0.2
+		}
+		ig:ig_landowners = {
+			add_modifier = {
+				name = 1848_positive_2
+				months = long_modifier_time
+			}
+		}
+		ig:ig_reactionaries = {
+			add_modifier = {
+				name = 1848_positive_2
+				months = long_modifier_time
+			}
+		}
+		ig:ig_radicals = {
+			add_modifier = {
+				name = 1848_negative_1
+				months = long_modifier_time
+			}
+		}
+		ig:ig_liberals = {
+			add_modifier = {
+				name = 1848_negative_1
+				months = long_modifier_time
+			}
+		}
+
+	    ai_chance = {
+			base = 70	
+		}
+    }
+	option = {
+		name = italy_1848.4.b
+
+		add_modifier = {
+		    name = sicilian_revolution_legitimacy
+			months = long_modifier_time
+		}
+		add_radicals = {
+			value = 0.1
+		}
+		activate_law = law_type:law_monarchy
+		activate_law = law_type:law_census_voting
+		activate_law = law_type:law_right_of_assembly
+
+	    ai_chance = {
+			base = 10
+		}
+    }
+	option = {
+		name = italy_1848.4.c
+
+		add_modifier = {
+		    name = sicilian_revolution_lost
+			months = long_modifier_time
+		}
+		ig:ig_landowners = {
+			add_modifier = {
+				name = 1848_negative_2
+				months = long_modifier_time
+			}
+		}
+		ig:ig_reactionaries = {
+			add_modifier = {
+				name = 1848_negative_2
+				months = long_modifier_time
+			}
+		}
+		ig:ig_radicals = {
+			add_modifier = {
+				name = 1848_positive_1
+				months = long_modifier_time
+			}
+		}
+		ig:ig_liberals = {
+			add_modifier = {
+				name = 1848_positive_1
+				months = long_modifier_time
+			}
+		}
+		add_radicals = {
+			strata = rich
+			value = 0.25
+		}
+		activate_law = law_type:law_parliamentary_republic
+		activate_law = law_type:law_universal_suffrage
+		activate_law = law_type:law_right_of_assembly
+
+	    ai_chance = {
+			base = 20
+		}
+    }
+}
+
+#SAR Statuto Albertino
+italy_1848.6 = {
+	type = country_event
+	placement = root
+
+	title = italy_1848.6.t
+	desc = italy_1848.6.d
+	flavor = italy_1848.6.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_ruler_speaking_to_people.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/leader_speaking_to_a_group_of_people"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 3
+
+	trigger = {
+		exists = c:SAR
+		this = c:SAR
+		owns_entire_state_region = STATE_PIEDMONT
+		OR = {
+			has_journal_entry = je_springtime_of_the_peoples
+			radical_fraction = {
+				value >= 0.3
+			}
+			any_scope_state = {
+				state_region = s:STATE_PIEDMONT
+				turmoil >= 0.2
+			}	
+		}
+		NOT = {
+			has_variable = albertine_statute
+		}
+	}
+
+	immediate = {
+    	ruler = {
+			save_scope_as = ruler_scope
+		}
+		c:SAR = {
+			save_scope_as = sar_scope
+		}
+		set_variable = albertine_statute
+	}
+
+	option = {
+		name = italy_1848.6.a
+		default_option = yes
+
+		add_journal_entry = {
+			type = je_albertine_statute
+		}
+
+	    ai_chance = {
+			base = 95	
+		}
+    }
+	option = {
+		name = italy_1848.6.b
+
+		add_modifier = {
+		    name = alb_statute_legitimacy
+			months = long_modifier_time
+		}
+		add_radicals = {
+			strata = poor
+			value = 0.2
+		}
+		add_radicals = {
+			strata = middle
+			value = 0.2
+		}
+		ig:ig_landowners = {
+			add_modifier = {
+				name = 1848_positive_2
+				months = long_modifier_time
+			}
+		}
+		ig:ig_reactionaries = {
+			add_modifier = {
+				name = 1848_positive_2
+				months = long_modifier_time
+			}
+		}
+		ig:ig_radicals = {
+			add_modifier = {
+				name = 1848_negative_1
+				months = long_modifier_time
+			}
+		}
+		ig:ig_liberals = {
+			add_modifier = {
+				name = 1848_negative_1
+				months = long_modifier_time
+			}
+		}
+
+	    ai_chance = {
+			base = 5	
+		}
+    }
+}
+
+#AUS (HIDDEN) Creation of Republic of San Marco
+italy_1848.7 = {
+	type = country_event
+	hidden = yes
+	duration = 0
+
+	trigger = {
+		exists = c:AUS
+		this = c:AUS
+		NOT = { has_global_variable = san_marco_created }
+		has_state_in_state_region = STATE_VENETIA
+		OR = {
+		    AND = {
+		    has_journal_entry = je_springtime_of_the_peoples
+			any_scope_state = { 
+				AND = {	
+	    			state_region = { 
+						is_homeland = cu:north_italian 
+					}
+					OR = {
+						turmoil >= 0.12
+						radical_fraction = {
+							value >= 0.2
+						}
+					}
+				}
+			}
+			}
+			any_scope_state = { 
+				AND = {	
+	    			state_region = { 
+						is_homeland = cu:north_italian 
+					}
+					OR = {
+						turmoil >= 0.3
+						radical_fraction = {
+							value >= 0.3
+						}
+					}
+				}
+			}
+		}
+		
+		OR = {
+			c:AUS = {
+				has_state_in_state_region = STATE_VENETIA
+				is_subject = no
+			}
+			any_country = {
+				is_subject_of = c:AUS
+				has_state_in_state_region = STATE_VENETIA
+			}
+		}
+	}
+
+	immediate = {
+		set_global_variable = san_marco_created
+		s:STATE_VENETIA = {
+			random_scope_state = {
+				save_scope_as = venetia_scope
+			}
+		}
+		create_country = { #Republic of San Marco
+			tag = RSM
+			origin = this
+			state = scope:venetia_scope
+			on_created = {
+				activate_law = law_type:law_presidential_republic
+				activate_law = law_type:law_universal_suffrage
+				activate_law = law_type:law_right_of_assembly
+				bpm_setup_country = yes
+				call_election = {
+					months = 48
+				}
+				ig:ig_radicals = {
+					add_ruling_interest_group = yes
+					add_modifier = {
+						name = san_marco_ig_str
+						months = long_modifier_time
+					}
+				}
+				create_character = {
+					# Daniele Manin
+					is_general = no
+					first_name = "Daniele"
+					last_name = "Manin"
+					historical = yes
+					ruler = no
+					birth_date = 1804.05.13
+					ig_leader = yes
+					interest_group = ig_radicals
+					ideology = ideology_liberal
+					traits = {
+						brave
+						meticulous
+					}
+				}
+				set_variable = {
+					name = san_marco_var
+					value = yes
+				}
+			}		
+		}
+		trigger_event = {
+			id = italy_1848.8
+			days = 1 #This is needed or the loc won't show the RSM flag
+			popup = yes
+		}
+	}
+}
+
+
+#AUS Five Days of Milan
+italy_1848.10 = {
+	type = country_event
+	placement = scope:lombardy_scope
+
+	title = italy_1848.10.t
+	desc = italy_1848.10.d
+	flavor = italy_1848.10.f
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_springtime_of_nations.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/springtime_of_nation"
+
+	icon = "gfx/interface/icons/event_icons/event_revolt.dds"
+
+	duration = 1
+
+	immediate = {
+
+		if = {
+			limit = {
+				exists = c:SAR
+				c:SAR = {
+					is_subject = no
+				}
+			}
+			c:SAR = {
+				save_scope_as = ita_scope
+			}
+		}
+
+		if = {
+			limit = {
+				OR = {
+					NOT = {
+						exists = c:SAR
+					}
+					c:SAR = {
+						is_subject = yes
+					}
+				}
+			}
+			random_country = {
+				limit = {
+					is_player = no
+					is_subject = no
+					NOT = {
+						this = c:RSM
+					}
+					OR = {
+						country_has_primary_culture = cu:north_italian
+						country_has_primary_culture = cu:south_italian
+					}
+					country_rank >= rank_value:minor_power
+					OR = {
+						any_neighbouring_state = {
+							owner = c:AUS
+						}
+						any_neighbouring_state = {
+							owner = c:RSM
+						}
+						any_neighbouring_state = {
+							owner = c:MLN
+						}
+					}
+				}
+				save_scope_as = ita_scope
+			}
+		}
+
+		random_country = {
+			limit = {
+				OR = {
+					country_has_primary_culture = cu:north_italian
+					country_has_primary_culture = cu:south_italian
+				}
+				country_rank >= rank_value:minor_power
+				OR = {
+					any_neighbouring_state = {
+						owner = c:AUS
+					}
+					any_neighbouring_state = {
+						owner = c:RSM
+					}
+					any_neighbouring_state = {
+						owner = c:MLN
+					}
+				}
+				is_player = yes
+			}
+			save_scope_as = ita_scope
+		}
+
+
+		s:STATE_LOMBARDY = {
+			random_scope_state = {
+				save_scope_as = lombardy_scope
+			}
+		}
+		create_country = { #Milan
+			tag = MLN
+			origin = this
+			state = scope:lombardy_scope
+			on_created = {
+				activate_law = law_type:law_presidential_republic
+				activate_law = law_type:law_universal_suffrage
+				activate_law = law_type:law_right_of_assembly
+				bpm_setup_country = yes
+				call_election = {
+					months = 48
+				}
+				ig:ig_radicals = {
+					add_ruling_interest_group = yes
+					add_modifier = {
+						name = five_days_ig_str
+						months = long_modifier_time
+					}
+				}
+				create_character = {
+					# Carlo Cattaneo
+					is_general = no
+					first_name = "Carlo"
+					last_name = "Cattaneo"
+					historical = yes
+					ruler = no
+					birth_date = 1801.01.15
+					ig_leader = yes
+					interest_group = ig_radicals
+					ideology = ideology_liberal
+					traits = {
+						expert_political_operator
+					}
+				}
+				set_variable = {
+					name = five_days_var
+					value = yes
+				}
+			}		
+		}
+		hidden_effect = {
+			s:STATE_LOMBARDY = {
+				set_owner_of_provinces = {
+					country = c:AUS
+					provinces = { x867A90 x9AC196 xA40CE9 x4713EE x70B8A9 x50C060 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = italy_1848.10.a
+		default_option = yes
+
+		custom_tooltip = italy_1848.10.tt1
+
+		change_relations = {
+			country = c:MLN
+			value = -100
+	    }
+	    hidden_effect = {
+    	    c:MLN = {
+				change_relations = {
+					country = scope:ita_scope
+					value = 100
+			    }
+		    }
+	    }
+
+		scope:ita_scope = {
+			trigger_event = {
+				id = italy_1848.11
+			}
+		}
+
+	    ai_chance = {
+			base = 50
+		}
+    }
+
+	option = {
+		name = italy_1848.10.b
+
+		s:STATE_LOMBARDY.region_state:AUS = {
+			set_state_owner = c:MLN
+		}
+		trigger_event = {
+			id = italy_1848.9
+    	}
+    	hidden_effect = {
+			create_bidirectional_truce = {
+				country = c:MLN
+				months = 60
+			}
+			create_bidirectional_truce = {
+				country = c:RSM
+				months = 60
+			}
+		}
+		scope:ita_scope = {
+			trigger_event = {
+				id = italy_1848.12
+			}
+		}
+
+	    ai_chance = {
+			base = 4
+			modifier = {
+				trigger = {
+					is_at_war = yes
+				}
+				add = 10
+			}
+			modifier = {
+				trigger = {
+					in_default = yes
+				}
+				add = 25
+			}
+			modifier = {
+				trigger = {
+                    is_at_war = yes
+				    OR = { 
+						has_war_with = c:FRA
+						has_war_with = c:PRU
+						has_war_with = c:RUS
+						has_war_with = c:TUR
+					}	
+				}
+				add = 50
+			}
+		}
+	}
+	option = {
+		name = italy_1848.10.c
+
+		change_relations = {
+			country = c:MLN
+			value = -100
+	    }
+		scope:ita_scope = {
+			trigger_event = {
+				id = italy_1848.11
+			}
+		}
+
+	    ai_chance = {
+			base = 0
+		}
+	}
+}
+
+
+#PAP Roman Republic
+italy_1848.20 = {
+	type = country_event
+	placement = root
+
+	title = italy_1848.20.t
+	desc = italy_1848.20.d
+	flavor = italy_1848.20.f
+
+	event_image = {
+		video = "gfx/event_pictures/europenorthamerica_springtime_of_nations.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/europenorthamerica/springtime_of_nation"
+
+	icon = "gfx/interface/icons/event_icons/event_protest.dds"
+
+	duration = 1
+
+	trigger = {
+		exists = c:PAP
+		this = c:PAP
+		owns_entire_state_region = STATE_LAZIO
+		NOT = {
+			has_global_variable = roman_rep_happened_var
+		}
+		OR = {
+			has_journal_entry = je_springtime_of_the_peoples
+			radical_fraction = {
+				value >= 0.3
+			}
+			any_scope_state = {
+				state_region = s:STATE_LAZIO
+				turmoil >= 0.2
+			}	
+		}
+		has_law = law_type:law_theocracy
+	}
+
+	immediate = {
+		set_global_variable = roman_rep_happened_var
+	}
+
+    option = {
+		name = italy_1848.20.a
+		default_option = yes
+
+		custom_tooltip = {
+			text = italy_1848.20.tt1
+			create_country = { # Roman Republic
+				tag = RMR
+				origin = this
+				state = s:STATE_LAZIO.region_state:PAP
+				on_created = {
+					set_variable = {
+						name = roman_rep_var
+						value = yes
+					}
+					activate_law = law_type:law_presidential_republic
+					activate_law = law_type:law_universal_suffrage
+					activate_law = law_type:law_right_of_assembly
+					bpm_setup_country = yes
+					call_election = {
+						months = 48
+					}
+					add_primary_culture = cu:north_italian
+					ig:ig_radicals = {
+						add_ruling_interest_group = yes
+						add_modifier = {
+							name = roman_republic_ig_str
+							months = long_modifier_time
+						}
+					}
+					create_character = {
+						# Giuseppe Mazzini
+						is_general = no
+						first_name = "Giuseppe"
+						last_name = "Mazzini"
+						historical = yes
+						ruler = no
+						birth_date = 1805.06.22
+						ig_leader = yes
+						interest_group = ig_radicals
+						ideology = ideology_republican
+						traits = {
+							expert_political_operator
+							persistent
+						}
+					}
+					annex = c:PAP
+				}
+			}
+			play_as = c:RMR
+		}
+
+		c:FRA = {
+			trigger_event = {
+				id = italy_1848.21
+			}
+		}
+
+	    ai_chance = {
+			base = 95	
+		}
+	}
+
+	option = {
+		name = italy_1848.20.b
+
+		activate_law = law_type:law_theocracy
+		activate_law = law_type:law_census_voting
+		activate_law = law_type:law_right_of_assembly
+		activate_law = law_type:law_freedom_of_conscience
+
+		add_radicals = {
+			strata = poor
+			value = 0.05
+		}
+		add_radicals = {
+			strata = middle
+			value = 0.05
+		}
+
+	    ai_chance = {
+			base = 5	
+		}
+    }
+}
+
+
+#FRA Roman Republic War Win
+italy_1848.22 = {
+	type = country_event
+	placement = root
+
+	title = italy_1848.22.t
+	desc = italy_1848.22.d
+	flavor = italy_1848.22.f
+
+	event_image = {
+		video = "gfx/event_pictures/unspecific_military_parade.bk2"
+	}
+
+	on_created_soundeffect = "event:/SFX/UI/Alerts/event_appear"
+	on_opened_soundeffect = "event:/SFX/Events/unspecific/military_parade"
+
+	icon = "gfx/interface/icons/event_icons/event_portrait.dds"
+
+	duration = 1
+
+	trigger = {
+		has_global_variable = roman_rep_war_var
+		c:FRA = {
+			owns_entire_state_region = STATE_LAZIO
+		}
+		exists = c:RMR
+	}
+
+	immediate = {
+		c:RMR = {
+			save_scope_as = rmr_scope
+		}
+		s:STATE_LAZIO = {
+			remove_claim = c:FRA
+		}
+	}
+
+    option = {
+		name = italy_1848.22.a
+		default_option = yes
+
+		custom_tooltip = {
+			text = italy_1848.22.tt1
+			create_country = { # Papal States
+				tag = PAP
+				origin = c:RMR
+				state = s:STATE_LAZIO.region_state:FRA
+				on_created = {
+					activate_law = law_type:law_theocracy
+					activate_law = law_type:law_oligarchy
+					activate_law = law_type:law_state_religion
+					activate_law = law_type:law_censorship
+					bpm_setup_country = yes
+					ig:ig_devout = {
+						add_ruling_interest_group = yes
+					}
+					c:PAP = {
+						annex = c:RMR
+					}
+					add_radicals = {
+						strata = poor
+						value = 0.2
+					}
+					add_radicals = {
+						strata = middle
+						value = 0.2
+					}
+				}
+			}
+		}
+		add_modifier = {
+			name = helped_the_pope
+			months = long_modifier_time
+		}
+
+	    ai_chance = {
+			base = 1	
+		}
+	}
+}
