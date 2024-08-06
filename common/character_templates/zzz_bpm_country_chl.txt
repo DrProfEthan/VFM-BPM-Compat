@@ -1,0 +1,56 @@
+﻿### Chile character template file ###
+
+### Interest Group Leaders ###
+CHL_Manuel_Bulnes = { # Manuel Bules Prieto, nephew of José Joaquin Prieto and future president of Chile himself
+	first_name = "Manuel"
+	last_name = "Bulnes"
+	historical = yes
+	female = no
+	commander_rank = default
+	interest_group = ig_conservatives
+	culture = cu:south_andean
+	ideology = ideology_moderate
+	birth_date = 1799.12.25
+	ig_leader = yes
+	is_general = yes
+	hq = region_andes
+	traits = {
+		meticulous
+		direct
+	}
+	trait_generation = { }
+	on_created = {
+		set_variable = {
+			name = is_bulnes
+		}
+	}
+}
+
+CHL_Diego_Portales = {
+	# Diego Portales. Merchant, minister of state
+	first_name = "Diego_Jose"
+	last_name = "Portales"
+	historical = yes
+	birth_date = 1793.7.5
+	dna = dna_diego_jose_portales
+	ig_leader = yes
+	interest_group = ig_reactionaries #ig_industrialists
+	ideology = ideology_center_leader
+	traits = {
+		persistent
+		expert_political_operator
+		master_bureaucrat
+	}
+	on_created = {
+		set_variable = {
+			name = is_portales
+		}
+		set_variable = prime_minister_trigger
+		owner = {
+			set_variable = {
+				name = prime_minister
+				value = PREV
+			}
+		}								
+	}	
+}

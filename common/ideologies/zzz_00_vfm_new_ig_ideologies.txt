@@ -1,0 +1,27 @@
+﻿ideology_guilds = {
+	icon = "gfx/interface/icons/ideology_icons/traditionalist.dds"
+}
+
+ideology_communalist = {
+	icon = "gfx/interface/icons/ideology_icons/unused/communist.dds"
+}
+
+ideology_conservadurismo = {
+	icon = "gfx/interface/icons/ideology_icons/stratocratic.dds"
+}
+
+ideology_liberalismo = {
+	icon = "gfx/interface/icons/ideology_icons/egalitarian.dds"
+}
+
+ideology_soberania_aristocratica = {
+	icon = "gfx/interface/icons/ideology_icons/moralist.dds"
+}
+
+ideology_agroexportadores = {
+	icon = "gfx/interface/icons/ideology_icons/agrarian.dds"
+}
+
+ideology_artesanado = {
+	icon = "gfx/interface/icons/ideology_icons/agrarian.dds"
+}

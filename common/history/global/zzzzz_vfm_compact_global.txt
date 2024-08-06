@@ -1,4 +1,8 @@
 ﻿GLOBAL = {
+	c:BOL = {
+		activate_law = law_type:law_slavery_banned
+		bpm_make_igs_not_pro_slavery_serfdom = yes
+	}
 	c:CAR = {
 		activate_law = law_type:law_slavery_banned
 		activate_law = law_type:law_devolved
@@ -23,7 +27,14 @@
 	}
 	c:PCO = {
 		activate_law = law_type:law_slave_trade
-		bpm_make_igs_pro_slavery = yes
+		ig:ig_landowners = { 
+			bpm_remove_all_eco_ideologies = yes
+			add_ideology = ideology_eco_slave_economy
+		}
+		ig:ig_reactionaries = { 
+			bpm_remove_all_eco_ideologies = yes
+			add_ideology = ideology_eco_slave_economy
+		}
 	}
 	c:PEU = {
 		activate_law = law_type:law_confederated
@@ -38,7 +49,27 @@
 			add_ideology = ideology_mil_antimilitarist
 		}
 	}
-
+	c:REF = {
+		activate_law = law_type:law_federated
+		activate_law = law_type:law_census_voting
+		ig:ig_liberals = { 
+			add_modifier = {
+				name = bpm_empowered_ig
+				months = long_modifier_time
+			}
+		}
+	}
+	c:SWE = {	
+		ig:ig_intelligentsia = {
+			set_interest_group_name = ig_guilds
+			bpm_remove_all_eco_ideologies = yes
+			add_ideology = ideology_eco_traditional_agrarian
+			bpm_remove_all_dop_ideologies = yes
+			add_ideology = ideology_dop_oligarch
+			bpm_remove_all_cit_ideologies = yes
+			add_ideology = ideology_cit_nationalist
+		}
+	}
 	every_country = {
 		every_interest_group = {
 			limit = { bpm_ig_enabled = yes }

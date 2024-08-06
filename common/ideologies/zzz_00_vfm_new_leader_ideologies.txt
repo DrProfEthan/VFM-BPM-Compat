@@ -9,6 +9,7 @@
 		law_denominational_exclusion = approve
 		law_freedom_of_conscience = disapprove
 		law_total_separation = strongly_disapprove
+		law_state_atheism = strongly_disapprove
 	}
 
 	lawgroup_governance_principles = {
@@ -26,7 +27,9 @@
 		law_universal_suffrage = strongly_disapprove
 		law_census_voting = strongly_disapprove
 		law_wealth_voting = strongly_disapprove
-		law_landed_voting = strongly_disapprove				
+		law_landed_voting = strongly_disapprove	
+		law_technocracy = disapprove
+		law_military_junta = disapprove				
 	}
 
 	lawgroup_citizenship = {
@@ -118,6 +121,8 @@ ideology_liberal_monarchist = {
 		law_census_voting = neutral
 		law_universal_suffrage = neutral
 		law_anarchy = strongly_disapprove
+		law_technocracy = disapprove
+		law_military_junta = strongly_disapprove
 	}
 
 	lawgroup_free_speech = {
@@ -256,14 +261,16 @@ ideology_autocratic_autonomist = {
 		law_census_voting = strongly_disapprove
 		law_universal_suffrage = strongly_disapprove
 		law_anarchy = strongly_disapprove
+		law_technocracy = neutral
+		law_military_junta = approve
 	}
 	
 	lawgroup_centralization = {
-		law_confederated = neutral
-		law_federal = approve
+		law_ad_hoc_centralization = disapprove
+		law_confederated = strongly_approve
+		law_federated = approve
 		law_devolved = disapprove
 		law_unitary = strongly_disapprove
-		law_ad_hoc_centralization = disapprove
 	}
 
 	lawgroup_policing = {
